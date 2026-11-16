@@ -35,7 +35,12 @@ la qualité dépend de toi.
    - youtubeData : `title` (« Titre ☁️ Histoire animée pour enfants », ≤ 100 caractères),
      `type: "short"`, `privacy: "public"`, `madeForKids: true`, `category: "FILM_ANIMATION"`,
      `isAiGeneratedContent: false`, quelques `tags` (histoire pour enfants, dessin animé, conte…)
-   - `text` : 1-2 phrases de description + #shorts #histoirepourenfants
+   - `text` (OBLIGATOIRE, c'est la description YouTube) : 2-3 phrases qui racontent l'histoire
+     et sa petite leçon (ex. « Pico aide une fleur qui a soif. Une histoire douce sur l'entraide
+     pour les 3-6 ans ! »), puis une ligne vide, puis 8 à 12 hashtags :
+     toujours `#shorts #histoirepourenfants #dessinanime #contepourenfants #enfants #maternelle`
+     + 3 à 6 hashtags liés à l'histoire du jour (ex. #nuage #fleur #arcenciel #entraide #amitié).
+     Hashtags en minuscules, sans accents ni espaces à l'intérieur d'un hashtag.
    - heure : **17:00** (heure de Paris) le jour même ; si 17:00 est passé, le lendemain 17:00.
 9. En cas d'échec (rendu, push, Metricool), n'invente rien : décris l'erreur dans le résumé final.
 
