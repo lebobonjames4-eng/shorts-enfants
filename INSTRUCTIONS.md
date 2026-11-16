@@ -1,15 +1,24 @@
 # Short du jour — mode d'emploi pour Claude
 
-Chaque jour, une tâche programmée crée **une nouvelle histoire animée de 30 s pour les 3-6 ans**
+Chaque jour, une tâche programmée crée **une nouvelle histoire animée de 45 à 55 s pour les 3-6 ans**
 et la programme sur YouTube (Shorts) via Metricool. Personne ne vérifie avant la publication :
 la qualité dépend de toi.
 
 ## Règles de contenu
 - Public : enfants de 3 à 6 ans. Histoire douce, positive, sans peur, sans violence, sans marque,
   sans personnage connu (pas de Disney, Pokémon, Pat'Patrouille, etc.). Personnages originaux uniquement.
-- Une histoire = un petit problème + une aide/gentillesse + une fin joyeuse. Valeurs : partage, entraide,
-  amitié, découverte, politesse, nature.
-- Français simple, phrases courtes. Bandeau de narration : 3 phrases. Bulles : 5 à 7 répliques courtes.
+- L'histoire doit être **un peu développée**, pas juste « problème → solution ». Structure en 5 temps :
+  1. présentation du héros (avec un trait de caractère : curieux, maladroit, gourmand, timide…) ;
+  2. rencontre avec un ami qui a un problème ;
+  3. **un premier essai qui rate de façon rigolote** (bruitage "oops" ou "boing") ;
+  4. une bonne idée, souvent trouvée ensemble, et ça marche ;
+  5. une fin joyeuse avec une petite surprise (cadeau, danse, arc-en-ciel, feu d'artifice, nouvel ami…).
+  Valeurs : partage, entraide, amitié, persévérance, découverte, politesse, nature.
+- Un 3e personnage secondaire est le bienvenu (oiseau, papillon, escargot…), s'il reste lisible.
+- Durée : `DURATION = 45` à `55` dans `story.py`. Toutes les animations de `scene()` et les temps de
+  `CAPTIONS`, `LINES` et `SFX` doivent être recalés sur cette durée (« Fin ! » arrive à DURATION - 2.7).
+- Français simple, phrases courtes. Bandeau de narration : 5 phrases (une par temps).
+  Bulles : 8 à 12 répliques courtes et drôles. Varie aussi `MELODY`/`BASS` (gamme majeure, joyeuse).
 - Chaque jour doit être **différent** des histoires de `HISTOIRES.md` : autre héros, autre ami,
   autre décor ou moment (jour, nuit, mer, neige, forêt, jardin, espace…), autre geste d'aide.
   Varie aussi les couleurs. YouTube pénalise les vidéos trop répétitives.
@@ -24,9 +33,9 @@ la qualité dépend de toi.
    `scene()` doit toujours renvoyer `img, x, y, head` (position du héros, et point au-dessus de la tête
    de l'ami pour les bulles). La partie haute de l'écran vertical (titre, narration, « Fin ! ») est
    dans `anim_vert.py` (ciel `make_top_sky`, soleil). Adapte-la si le décor change (ex. nuit = lune).
-4. Vérifie : `./stills.sh 3.5 10 16 22 28` puis **regarde** `vsheet.png`. Corrige tout ce qui déborde,
+4. Vérifie : `./stills.sh` avec 6 à 8 instants répartis sur toute la durée (un par temps fort), puis **regarde** `vsheet.png`. Corrige tout ce qui déborde,
    se chevauche, est illisible ou moche. Recommence jusqu'à ce que ce soit propre.
-5. Fabrique : `./build.sh ../../videos/AAAA-MM-JJ-nom.mp4` (≈15 s).
+5. Fabrique : `./build.sh ../../videos/AAAA-MM-JJ-nom.mp4` (≈20-30 s).
 6. Ajoute une ligne dans `HISTOIRES.md`, puis `git add -A && git commit && git push`.
 7. Lien public de la vidéo :
    `https://raw.githubusercontent.com/lebobonjames4-eng/shorts-enfants/main/videos/AAAA-MM-JJ-nom.mp4`
@@ -35,9 +44,13 @@ la qualité dépend de toi.
    - youtubeData : `title` (« Titre ☁️ Histoire animée pour enfants », ≤ 100 caractères),
      `type: "short"`, `privacy: "public"`, `madeForKids: true`, `category: "FILM_ANIMATION"`,
      `isAiGeneratedContent: false`, quelques `tags` (histoire pour enfants, dessin animé, conte…)
-   - `text` (OBLIGATOIRE, c'est la description YouTube) : 2-3 phrases qui racontent l'histoire
-     et sa petite leçon (ex. « Pico aide une fleur qui a soif. Une histoire douce sur l'entraide
-     pour les 3-6 ans ! »), puis une ligne vide, puis 15 à 20 hashtags :
+   - `text` (OBLIGATOIRE, c'est la description YouTube) : un petit paragraphe de 4 à 6 phrases,
+     enthousiaste et accrocheur, qui raconte le début de l'histoire (héros, problème, essai raté)
+     sans dévoiler toute la fin, dit que c'est une histoire trop cool / rigolo / mignonne et donne
+     envie de regarder jusqu'au bout (ex. « Pico, un petit nuage curieux, découvre une fleur toute
+     triste… Il essaie de l'aider, mais oups, rien ne se passe comme prévu ! 😂 Va-t-il réussir ?
+     Une histoire trop mignonne et rigolote sur l'entraide, parfaite pour les 3-6 ans ! 🌈 »).
+     Quelques emojis bienvenus. Puis une ligne vide, puis 15 à 20 hashtags :
      toujours `#shorts #histoirepourenfants #dessinanime #contepourenfants #enfants #maternelle
      #drole #rigolo #mignon #pixel #pixelart #jeu #jeuvideo #retro`
      + 3 à 6 hashtags liés à l'histoire du jour (ex. #nuage #fleur #arcenciel #entraide #amitie).

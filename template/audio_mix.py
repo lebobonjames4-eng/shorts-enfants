@@ -1,5 +1,6 @@
 import numpy as np, wave
-SR=44100; D=30.0; N=int(SR*D)
+import story
+SR=44100; D=float(story.DURATION); FIN=D-2.7; N=int(SR*D)
 out=np.zeros(N)
 def f(n): return 440*2**((n-69)/12)
 def note(t0,freq,dur,vol,kind="box"):
@@ -14,38 +15,41 @@ def note(t0,freq,dur,vol,kind="box"):
         s=(4*np.abs(ph-0.5)-1)
         env=np.where(tt<1.2,1.0,np.exp(-(tt-1.2)*10))*np.minimum(1,tt/0.003)
     out[i0:i0+n]+=vol*s*env
-C5,D5,E5,G5,A5=72,74,76,79,81
-mel=[E5,G5,A5,G5,E5,D5,C5,D5,E5,G5,E5,D5,C5,D5,C5,None]
-bass=[48,45,41,43]
-beat=0.4
+mel=story.MELODY
+bass=story.BASS
+beat=story.BEAT
+quiet=[(e[1],e[2]) for e in story.SFX if e[0]=="noise"]
 t=0.4; i=0
-while t<27.3:
-    m=mel[i%16]
-    vol=0.18 if not (12.4<t<19) else 0.11
+while t<FIN:
+    m=mel[i%len(mel)]
+    vol=0.11 if any(a<t<b for a,b in quiet) else 0.18
     if m: note(t,f(m),1.2,vol)
-    if i%4==0: note(t,f(bass[(i//4)%4]),1.6,0.16,"bass")
+    if i%4==0: note(t,f(bass[(i//4)%len(bass)]),1.6,0.16,"bass")
     t+=beat; i+=1
-# worried: two descending notes
-note(9.5,f(67),0.6,0.15); note(9.8,f(63),0.9,0.15)
-# rain noise + plics
 rng=np.random.default_rng(1)
-a,b=int(12.4*SR),int(19.2*SR)
-nz=rng.standard_normal(b-a); 
-y=np.zeros_like(nz); acc=0
-for k in range(len(nz)): acc=acc*0.85+nz[k]*0.15; y[k]=acc
-tt=np.arange(b-a)/SR; env=np.minimum(1,tt/0.6)*np.minimum(1,(tt[-1]-tt)/0.6)
-out[a:b]+=0.10*y*env
-tp=12.6
-while tp<18.9:
-    note(tp,f(rng.integers(84,96)),0.15,0.07)
-    tp+=rng.uniform(0.12,0.3)
-# happy sparkle arpeggio
-for j,m in enumerate([72,76,79,84,88,91]): note(18.9+j*0.09,f(m),1.0,0.14)
-# rainbow shimmer
-for j,m in enumerate([79,84,88,91,96]): note(20.6+j*0.25,f(m),1.2,0.08)
-# Fin chord
-for m in [60,64,67,72,76]: note(27.3,f(m),2.6,0.12)
-note(27.3,f(48),2.6,0.15,"bass")
+for ev in story.SFX:
+    kind,t0=ev[0],ev[1]
+    if kind=="sad":        # deux notes qui descendent
+        note(t0,f(67),0.6,0.15); note(t0+0.3,f(63),0.9,0.15)
+    elif kind=="noise":    # bruit doux (pluie, vent, vagues) + petites notes "plic"
+        t1=ev[2]; a,b=int(t0*SR),int(t1*SR)
+        nz=rng.standard_normal(b-a); y=np.zeros_like(nz); acc=0
+        for k in range(len(nz)): acc=acc*0.85+nz[k]*0.15; y[k]=acc
+        tt=np.arange(b-a)/SR; env=np.minimum(1,tt/0.6)*np.minimum(1,(tt[-1]-tt)/0.6)
+        out[a:b]+=0.10*y*env
+        tp=t0+0.2
+        while tp<t1-0.3:
+            note(tp,f(rng.integers(84,96)),0.15,0.07); tp+=rng.uniform(0.12,0.3)
+    elif kind=="joy":      # arpège joyeux qui monte
+        for j,m in enumerate([72,76,79,84,88,91]): note(t0+j*0.09,f(m),1.0,0.14)
+    elif kind=="shimmer":  # scintillement magique
+        for j,m in enumerate([79,84,88,91,96]): note(t0+j*0.25,f(m),1.2,0.08)
+    elif kind=="boing":    # petit rebond / chute rigolote
+        for j in range(8): note(t0+j*0.03,f(60+j*3 if j<4 else 72-(j-4)*4),0.08,0.12)
+    elif kind=="oops":     # essai raté
+        note(t0,f(64),0.25,0.14); note(t0+0.2,f(58),0.6,0.14)
+for m in [60,64,67,72,76]: note(FIN,f(m),2.6,0.12)
+note(FIN,f(48),2.6,0.15,"bass")
 
 from speech import SYLL
 from story import VOICES, HERO

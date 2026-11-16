@@ -100,9 +100,9 @@ def bubble_v(d, text, ax, ay, u):
 
 
 def fin_v(d, t):
-    if t < 27.3:
+    if t < story.DURATION - 2.7:
         return
-    u = back((t - 27.3) / 0.7)
+    u = back((t - story.DURATION + 2.7) / 0.7)
     d.text((P(360), P(330 + 6 * math.sin(t * 4))), "Fin !", font=font(max(8, 170 * u)),
            fill=(255, 100, 150), anchor="mm", stroke_width=P(9 * u), stroke_fill=(255, 255, 255))
 

@@ -3,6 +3,14 @@ TITLE = "Pico le petit nuage"
 TITLE_LINES = [("Pico", 120), ("le petit nuage", 66)]   # (texte, taille) pour la version verticale
 HERO, FRIEND = "pico", "fleur"                          # noms des personnages qui parlent
 VOICES = {"pico": 230, "fleur": 430}                    # hauteur de voix (Hz) : grave ~200, aigu ~450
+DURATION = 30                                           # durée en secondes (« Fin ! » à DURATION - 2.7)
+
+# Musique 8-bit : notes MIDI (60 = do), None = silence. BEAT = durée d'une note (s).
+MELODY = [76, 79, 81, 79, 76, 74, 72, 74, 76, 79, 76, 74, 72, 74, 72, None]
+BASS = [48, 45, 41, 43]
+BEAT = 0.4
+# Bruitages : ("sad", t) ("noise", t0, t1) ("joy", t) ("shimmer", t) ("boing", t) ("oops", t)
+SFX = [("sad", 9.5), ("noise", 12.4, 19.2), ("joy", 18.9), ("shimmer", 20.6)]
 
 # (texte, début, fin) en secondes — bandeau de narration
 CAPTIONS = [
