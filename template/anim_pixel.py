@@ -309,8 +309,8 @@ def fin(d, t):
     if t < story.DURATION - 2.7:
         return
     u = back((t - story.DURATION + 2.7) / 0.7)
-    sz = max(8, 130 * u)
-    d.text((P(640), P(120 + 5 * math.sin(t * 4))), "Fin !", font=font(sz),
+    sz = max(8, 95 * u)
+    d.text((P(640), P(120 + 5 * math.sin(t * 4))), "The End!", font=font(sz),
            fill=(255, 100, 150), anchor="mm", stroke_width=P(8 * u), stroke_fill=(255, 255, 255))
 
 
@@ -369,7 +369,7 @@ def scene(t, with_sun=True):
             py = y + 60 + (t - t0) * 540
             if py < 612:
                 drop(d, x + dx, py)
-    head = flower(d, t, droop, sway, talking("fleur", t))
+    head = flower(d, t, droop, sway, talking("flower", t))
     pico(d, x, y, t, mood, tint, k, talking("pico", t))
     if 18.8 < t < 25:
         g = (t - 18.8) / 6.2
