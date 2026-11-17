@@ -29,9 +29,9 @@ def text_line(d, text, cx, y, sz, col, stroke=6):
 
 
 def title_v(d, t):
-    if t > 5.7:
+    if t > story.TITLE_OUT + 0.7:
         return
-    out = ease((t - 5.0) / 0.6) * -520
+    out = ease((t - story.TITLE_OUT) / 0.6) * -520
     ci = 0
     ys = [300, 390, 460][:len(story.TITLE_LINES)]
     for li, ((text, sz), ybase) in enumerate(zip(story.TITLE_LINES, ys)):
@@ -39,7 +39,7 @@ def title_v(d, t):
         x = 360 - f.getlength(text) / am.S / 2
         for i, ch in enumerate(text):
             k = i + sum(len(tl[0]) for tl in story.TITLE_LINES[:li])
-            u = back((t - 0.4 - k * 0.07) / 0.6)
+            u = back((t + 0.2 - k * 0.03) / 0.4)
             if ch != " " and u > 0:
                 yy = lerp(-160, ybase, u) + out + 6 * math.sin(t * 3 + k * 0.6)
                 d.text((P(x), P(yy)), ch, font=f, fill=am.TITLE_COLS[ci % 6], anchor="ls",

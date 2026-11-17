@@ -1,6 +1,6 @@
 # Short du jour — mode d'emploi pour Claude
 
-Chaque jour, une tâche programmée crée **une nouvelle histoire animée de 45 à 55 s pour les 3-6 ans**
+Chaque jour, une tâche programmée crée **une nouvelle histoire animée de 25 à 35 s pour les 3-6 ans**
 et la programme sur YouTube (Shorts) via Metricool. Personne ne vérifie avant la publication :
 la qualité dépend de toi.
 
@@ -15,7 +15,7 @@ la qualité dépend de toi.
   5. une fin joyeuse avec une petite surprise (cadeau, danse, arc-en-ciel, feu d'artifice, nouvel ami…).
   Valeurs : partage, entraide, amitié, persévérance, découverte, politesse, nature.
 - Un 3e personnage secondaire est le bienvenu (oiseau, papillon, escargot…), s'il reste lisible.
-- Durée : `DURATION = 45` à `55` dans `story.py`. Toutes les animations de `scene()` et les temps de
+- Durée : `DURATION = 25` à `35` dans `story.py` (un Short court et regardé jusqu'au bout marche mieux qu'un long). Toutes les animations de `scene()` et les temps de
   `CAPTIONS`, `LINES` et `SFX` doivent être recalés sur cette durée (« Fin ! » arrive à DURATION - 2.7).
 - Français simple, phrases courtes. Bandeau de narration : 5 phrases (une par temps).
   Bulles : 8 à 12 répliques courtes et drôles. Varie aussi `MELODY`/`BASS` (gamme majeure, joyeuse).
@@ -25,6 +25,17 @@ la qualité dépend de toi.
 - Garde le style : pixel art (scène dessinée en basse résolution puis agrandie), texte en pixels,
   musique 8-bit, voix « dessin animé » (sons, pas de vrais mots).
 
+## Accroche (très important pour les vues)
+Sur les Shorts, tout se joue dans la **première seconde** : sinon le spectateur swipe.
+- Le héros est **à l'écran dès la 1re image** et bouge tout de suite (pas d'entrée depuis le bord).
+- Première réplique dans la bulle **avant 0,5 s** (ex. « Coucou ! Je suis Tobi ! »), avec un geste drôle.
+- Le titre apparaît en moins d'une seconde et s'envole à `TITLE_OUT` (≈ 3 s) ; il ne doit jamais
+  retarder l'action. Première narration vers 3,5 s.
+- Les 5 temps sont serrés : environ 3-4 s par temps, pas de moment vide.
+- « Fin ! » court (2,7 s) pour que la boucle du Short reparte vite.
+- Titre YouTube accrocheur, si possible avec une petite question ou un enjeu
+  (ex. « Le bonhomme de neige a perdu son nez ! ⛄ Histoire animée pour enfants »).
+
 ## Comment faire
 1. Copie `template/` dans `histoires/AAAA-MM-JJ-nom/` et travaille dans ce dossier.
 2. Modifie `story.py` (titre, narration, répliques, voix, noms HERO/FRIEND).
@@ -33,7 +44,7 @@ la qualité dépend de toi.
    `scene()` doit toujours renvoyer `img, x, y, head` (position du héros, et point au-dessus de la tête
    de l'ami pour les bulles). La partie haute de l'écran vertical (titre, narration, « Fin ! ») est
    dans `anim_vert.py` (ciel `make_top_sky`, soleil). Adapte-la si le décor change (ex. nuit = lune).
-4. Vérifie : `./stills.sh` avec 6 à 8 instants répartis sur toute la durée (un par temps fort), puis **regarde** `vsheet.png`. Corrige tout ce qui déborde,
+4. Vérifie : `./stills.sh` avec 6 à 8 instants répartis sur toute la durée (un par temps fort), puis **regarde** `vsheet.png`. Inclus toujours l'instant 0 : la toute première image doit déjà montrer le héros et donner envie. Corrige tout ce qui déborde,
    se chevauche, est illisible ou moche. Recommence jusqu'à ce que ce soit propre.
 5. Fabrique : `./build.sh ../../videos/AAAA-MM-JJ-nom.mp4` (≈20-30 s).
 6. Ajoute une ligne dans `HISTOIRES.md`, puis `git add -A && git commit && git push`.

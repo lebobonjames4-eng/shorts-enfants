@@ -285,17 +285,17 @@ TITLE_COLS = [(255, 90, 120), (255, 150, 40), (240, 190, 20), (70, 180, 90),
 
 
 def title(d, t):
-    if t > 5.7:
+    if t > story.TITLE_OUT + 0.7:
         return
-    text = "Pico le petit nuage"
+    text = story.TITLE
     f = font(72)
     total = f.getlength(text) / S
     x = 640 - total / 2
-    out = ease((t - 5.0) / 0.6) * -320
+    out = ease((t - story.TITLE_OUT) / 0.6) * -320
     ci = 0
     for i, ch in enumerate(text):
         wch = f.getlength(ch) / S
-        u = back((t - 0.4 - i * 0.07) / 0.6)
+        u = back((t + 0.2 - i * 0.03) / 0.4)
         if ch != " " and u > 0:
             y = lerp(-140, 115, u) + out + 6 * math.sin(t * 3 + i * 0.6)
             d.text((P(x), P(y)), ch, font=f, fill=TITLE_COLS[ci % 6], anchor="ls",
@@ -333,10 +333,9 @@ def scene(t, with_sun=True):
         d = ImageDraw.Draw(img)
 
     # Pico position / mood
-    x, y = -220, 300
-    if t >= 0.5:
-        u = ease((t - 0.5) / 2.5)
-        x, y = lerp(-220, 640, u), 300
+    # accroche : Pico est à l'écran dès la 1re image et bouge tout de suite
+    u = ease(t / 1.5)
+    x, y = lerp(540, 640, u), 300 - 40 * math.sin(math.pi * min(1, t / 1.5))
     if t >= 5.6:
         u = ease((t - 5.6) / 3.4)
         x, y = lerp(640, 790, u), lerp(300, 225, u)
