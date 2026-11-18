@@ -71,7 +71,7 @@ Sur les Shorts, tout se joue dans la **première seconde** : sinon le spectateur
      + 3 à 5 hashtags liés à l'histoire du jour (ex. #cloud #flower #rainbow #kindness #friendship).
      Le but est d'attirer un maximum de spectateurs : ton fun et accrocheur dans la description.
      Hashtags en minuscules, sans espaces à l'intérieur d'un hashtag.
-   - heure : **17:00** (heure de Paris) le jour même ; si 17:00 est passé, le lendemain 17:00.
+   - heure : **16:00** (heure de Paris) le jour même ; si 16:00 est passé, le lendemain 16:00.
 9. En cas d'échec (rendu, push, Metricool), n'invente rien : décris l'erreur dans le résumé final.
 
 ## Fin de la tâche
