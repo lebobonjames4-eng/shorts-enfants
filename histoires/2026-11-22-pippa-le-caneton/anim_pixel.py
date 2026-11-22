@@ -479,6 +479,12 @@ def plant(d, t):
         d.line([P(x - 4), P(y - 36), P(x - 20), P(y - 136)], fill=(60, 140, 70), width=P(3))
 
 
+def cam(t):
+    """Centre de la caméra verticale (unités monde) : elle suit l'action."""
+    return path(t, [(0, 690, 0), (12.0, 690, 0), (13.0, 740, 0), (17.9, 740, 0), (19.6, 965, 0),
+                    (24.3, 965, 0), (25.3, 690, 0)])[0]
+
+
 def scene(t, with_sun=True):
     base = get_base(t)
     img = base.copy()
@@ -609,7 +615,7 @@ def scene(t, with_sun=True):
     else:                                          # elle tourne autour de Pippa
         a = (t - 24.0) * 1.7
         cx, cy = lerp(900, PX0 + 10, ease((t - 24.0) / 1.6)), 380
-        dx, dfy = cx + 150 * math.sin(a), cy + 40 * math.sin(a * 2) * 0.5 + 30 * math.cos(a)
+        dx, dfy = cx + 115 * math.sin(a), cy + 40 * math.sin(a * 2) * 0.5 + 30 * math.cos(a)
         df = 1 if math.cos(a) > 0 else -1
         dfly, dmood = 1.0, "happy"
 
@@ -700,10 +706,10 @@ def scene(t, with_sun=True):
     # fin : les amies coccinelles + cœurs
     if t > 24.0:
         g = ease((t - 24.0) / 1.2)
-        ccx, ccy = lerp(1350, 870, g), lerp(180, 250, g)
+        ccx, ccy = lerp(1350, 760, g), lerp(180, 330, g)
         for i, col in enumerate([(255, 150, 40), (245, 205, 40), (255, 110, 170), (232, 58, 58)]):
             a = (t - 24.0) * 1.4 + i * math.pi / 2
-            fx, fy_ = ccx + 170 * math.cos(a), ccy + 60 * math.sin(a)
+            fx, fy_ = ccx + 130 * math.cos(a), ccy + 50 * math.sin(a)
             ladybug(d, fx, fy_ + 18, t + i, "happy", 0, 1 if -math.sin(a) > 0 else -1, 0.6, 1.0, False, col)
     if t > 24.6:
         for i in range(5):
