@@ -29,16 +29,31 @@ Ce mode d'emploi reste en français, et le résumé final envoyé à l'utilisate
 - Garde le style : pixel art (scène dessinée en basse résolution puis agrandie), texte en pixels,
   musique 8-bit, voix « dessin animé » (sons, pas de vrais mots).
 
+## Cadrage : des personnages GRANDS (depuis le 22/11/2026)
+Sur un téléphone, de petits personnages perdus en bas d'un grand ciel = swipe. `anim_vert.py` (template) montre
+donc le monde **zoomé x1,5** : seule une fenêtre de **480 unités de large** et de **y = 240 à 720** est visible
+dans la version verticale.
+- Garde toute l'action (héros, ami, bulles, objets importants) entre **y = 300 et y = 720** et dans 480 unités de large.
+  Les éléments très hauts (soleil, lune, étoiles) vont dans le panneau du haut (`anim_vert.py`).
+- Définis `cam(t)` dans `anim_pixel.py` : le centre x de la caméra, qui **suit l'action** (fonction `path()` avec
+  des pans doux de ~1 s). Sans `cam`, la caméra se centre entre le héros et l'ami.
+- Bulles : remplis `ANCHORS["<nom>"] = (x, y)` (point au-dessus de la tête) dans `scene()` ; `anim_vert` les place.
+- Exemple complet : `histoires/2026-11-22-pippa-le-caneton/`.
+- Dans `vsheet.png`, vérifie que **personne n'est coupé** au bord et que les personnages occupent une bonne
+  partie de l'écran.
+
 ## Accroche (très important pour les vues)
 Sur les Shorts, tout se joue dans la **première seconde** : sinon le spectateur swipe.
-- Le héros est **à l'écran dès la 1re image** et bouge tout de suite (pas d'entrée depuis le bord).
+- Le héros **et l'ami** sont **à l'écran dès la 1re image** ; l'enjeu se voit tout de suite (l'ami est déjà triste,
+  coincé, mouillé…) et le héros bouge (pas d'entrée depuis le bord).
 - Première réplique dans la bulle **avant 0,5 s** (ex. « Coucou ! Je suis Tobi ! »), avec un geste drôle.
 - Le titre apparaît en moins d'une seconde et s'envole à `TITLE_OUT` (≈ 3 s) ; il ne doit jamais
   retarder l'action. Première narration vers 3,5 s.
 - Les 5 temps sont serrés : environ 3-4 s par temps, pas de moment vide.
 - « The End! » court (2,7 s) pour que la boucle du Short reparte vite.
-- Titre YouTube accrocheur, si possible avec une petite question ou un enjeu
-  (ex. « The Snowman Lost His Nose! ⛄ Animated Story for Kids »).
+- Titre YouTube accrocheur et COURT (≤ 50 caractères avant l'emoji), centré sur l'enjeu de l'ami ou une question,
+  pas sur le nom du héros (ex. « The Snowman Lost His Nose! ⛄ Animated Story for Kids »,
+  « Can Bunny Get Home Before Dark? 🌙 Animated Story for Kids »).
 
 ## Comment faire
 1. Copie `template/` dans `histoires/AAAA-MM-JJ-nom/` et travaille dans ce dossier.
@@ -73,6 +88,17 @@ Sur les Shorts, tout se joue dans la **première seconde** : sinon le spectateur
      Hashtags en minuscules, sans espaces à l'intérieur d'un hashtag.
    - heure : **16:00** (heure de Paris) le jour même ; si 16:00 est passé, le lendemain 16:00.
 9. En cas d'échec (rendu, push, Metricool), n'invente rien : décris l'erreur dans le résumé final.
+
+## Le dimanche : compilation longue (en plus du Short)
+Chez les 3-6 ans, beaucoup de vues viennent des vidéos longues (regardées sur tablette ou TV). Chaque **dimanche**,
+après le Short du jour :
+1. `./compile.sh videos/compil-AAAA-MM-JJ.mp4 <les 7 derniers dossiers d'histoires en anglais, du plus ancien au plus récent>`
+   (version 16:9 en 1920x1080, ≈1 min de calcul). Regarde 4-5 images extraites avec ffmpeg pour vérifier.
+2. Commit + push, puis programme dans Metricool à **19:30** (Paris) le jour même : youtubeData `type: "video"`
+   (PAS short), `madeForKids: true`, `category: "FILM_ANIMATION"`, `privacy: "public"`, titre du genre
+   « 7 Cute Animal Stories for Kids 🐻🦉🐸 Bedtime Stories Compilation », description en anglais avec
+   **chapitres** (`00:00 Titre`, calculés avec les `DURATION` de chaque `story.py`) puis 12-16 hashtags.
+3. Mets la compilation dans le résumé final.
 
 ## Fin de la tâche
 Envoie un court résumé : titre, histoire en une phrase, heure de publication, lien Metricool.
