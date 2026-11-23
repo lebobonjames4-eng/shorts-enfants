@@ -1,4 +1,4 @@
-"""Voix off : une conteuse lit chaque phrase de story.CAPTIONS (Piper, hors ligne).
+"""Voix off : une conteuse à la voix jeune et enjouée lit chaque phrase de story.CAPTIONS (Piper, hors ligne).
 
 Utilisé par audio_mix.py. Installer d'abord la voix avec ../../tts_setup.sh.
 Si Piper est absent ou échoue, renvoie None : la vidéo se fait quand même, sans voix off
@@ -10,13 +10,18 @@ import story
 
 TTS_DIR = os.environ.get("TTS_DIR", os.path.expanduser("~/.cache/tts"))
 PIPER = os.path.join(TTS_DIR, "piper", "piper")
-MODEL = os.path.join(TTS_DIR, "en-us-lessac-medium.onnx")
-SPEED = getattr(story, "NARRATION_SPEED", 1.12)     # > 1 = plus lent (enfants)
+MODEL = os.path.join(TTS_DIR, "en-us-libritts-high.onnx")
+SPEAKER = getattr(story, "NARRATOR", 552)            # conteuse : voix claire et vivante (LibriTTS n° 552)
+PITCH = getattr(story, "NARRATION_PITCH", 3)         # demi-tons en plus : voix plus jeune, « dessin animé »
+SPEED = getattr(story, "NARRATION_SPEED", 1.1)       # > 1 = plus lent (enfants)
+R = 2 ** (PITCH / 12)
 DELAY = 0.25                                         # la voix commence 0,25 s après l'apparition du bandeau
 
 
 def synth(text, path):
-    subprocess.run([PIPER, "-m", MODEL, "--length_scale", str(SPEED), "--sentence_silence", "0.25",
+    # on synthétise R fois plus lent puis on rejoue R fois plus vite : même durée, voix plus aiguë
+    subprocess.run([PIPER, "-m", MODEL, "--speaker", str(SPEAKER), "--length_scale", str(SPEED * R),
+                    "--noise_scale", "0.75", "--noise_w", "0.9", "--sentence_silence", "0.3",
                     "-f", path], input=text.encode(), check=True, capture_output=True)
     w = wave.open(path)
     sr = w.getframerate()
@@ -25,7 +30,7 @@ def synth(text, path):
     nz = np.nonzero(np.abs(a) > 0.01)[0]              # enlève les silences au début et à la fin
     if len(nz):
         a = a[max(0, nz[0] - int(0.03 * sr)): nz[-1] + int(0.08 * sr)]
-    return a, sr
+    return a, sr * R
 
 
 def narration(SR, N):

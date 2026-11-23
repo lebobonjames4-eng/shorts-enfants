@@ -30,9 +30,10 @@ Ce mode d'emploi reste en français, et le résumé final envoyé à l'utilisate
   musique 8-bit, voix « dessin animé » des personnages (sons, pas de vrais mots).
 
 ## Voix off (depuis le 23/11/2026)
-Une conteuse (voix de synthèse Piper, anglais, hors ligne) lit à voix haute les 5 phrases de `CAPTIONS`.
+Une conteuse à la voix jeune et enjouée (Piper, voix LibriTTS n° 552 rendue 3 demi-tons plus aiguë, anglais, hors ligne)
+lit à voix haute les 5 phrases de `CAPTIONS`. Garde les réglages par défaut de `voiceover.py` (la même voix chaque jour).
 - Avant `./build.sh`, lance une fois `./tts_setup.sh` depuis la racine du dépôt (télécharge Piper et la voix
-  depuis GitHub dans `~/.cache/tts`, ≈ 85 Mo). `voiceover.py` (copié avec `template/`) fait le reste.
+  depuis GitHub dans `~/.cache/tts`, ≈ 140 Mo). `voiceover.py` (copié avec `template/`) fait le reste.
 - Écris les `CAPTIONS` pour être **lues à voix haute** : phrases naturelles, ponctuées, sans abréviation.
   Chaque phrase doit tenir dans son bandeau : compte environ 2,5 mots par seconde. Si `audio_mix.py` affiche
   « ATTENTION voix off trop longue », raccourcis la phrase ou allonge le bandeau.
