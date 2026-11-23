@@ -80,7 +80,15 @@ for who,t0,dur,pf,v in SYLL:
 act=(np.abs(voice)>0).astype(float)
 k=int(0.15*SR); ker=np.ones(k)/k
 act=np.clip(np.convolve(act,ker,'same')*3,0,1)
-out=out/np.abs(out).max()*0.6*(1-0.55*act)+voice/np.abs(voice).max()*0.8
+# voix off (conteuse) : musique et petites voix baissent pendant qu'elle parle
+from voiceover import narration
+narr=narration(SR,N)
+if narr is None:
+    print("VOIX OFF ABSENTE (lancer ../../tts_setup.sh) : vidéo sans conteuse")
+    narr=np.zeros(N)
+nact=(np.abs(narr)>0.02).astype(float)
+k2=int(0.35*SR); nact=np.clip(np.convolve(nact,np.ones(k2)/k2,'same')*4,0,1)
+out=out/np.abs(out).max()*0.6*(1-0.55*act)*(1-0.6*nact)+voice/np.abs(voice).max()*0.8*(1-0.65*nact)+narr*1.0
 out*=np.minimum(1,(D-np.arange(N)/SR)/0.8)
 out/=max(1e-9,np.abs(out).max())/0.85
 pcm=(out*32767).astype(np.int16)

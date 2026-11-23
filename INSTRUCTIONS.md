@@ -27,7 +27,19 @@ Ce mode d'emploi reste en français, et le résumé final envoyé à l'utilisate
   autre décor ou moment (jour, nuit, mer, neige, forêt, jardin, espace…), autre geste d'aide.
   Varie aussi les couleurs. YouTube pénalise les vidéos trop répétitives.
 - Garde le style : pixel art (scène dessinée en basse résolution puis agrandie), texte en pixels,
-  musique 8-bit, voix « dessin animé » (sons, pas de vrais mots).
+  musique 8-bit, voix « dessin animé » des personnages (sons, pas de vrais mots).
+
+## Voix off (depuis le 23/11/2026)
+Une conteuse (voix de synthèse Piper, anglais, hors ligne) lit à voix haute les 5 phrases de `CAPTIONS`.
+- Avant `./build.sh`, lance une fois `./tts_setup.sh` depuis la racine du dépôt (télécharge Piper et la voix
+  depuis GitHub dans `~/.cache/tts`, ≈ 85 Mo). `voiceover.py` (copié avec `template/`) fait le reste.
+- Écris les `CAPTIONS` pour être **lues à voix haute** : phrases naturelles, ponctuées, sans abréviation.
+  Chaque phrase doit tenir dans son bandeau : compte environ 2,5 mots par seconde. Si `audio_mix.py` affiche
+  « ATTENTION voix off trop longue », raccourcis la phrase ou allonge le bandeau.
+- Évite les répliques de bulles pendant la voix off (la conteuse parle ~0,25 s après l'arrivée du bandeau) :
+  place-les plutôt entre deux phrases de narration. Les petites voix sont baissées automatiquement sous la conteuse.
+- Si `build.sh` affiche « VOIX OFF ABSENTE » (téléchargement ou Piper bloqué), la vidéo se fait quand même sans
+  conteuse : publie-la, mais **signale-le dans le résumé final**.
 
 ## Cadrage : des personnages GRANDS (depuis le 22/11/2026)
 Sur un téléphone, de petits personnages perdus en bas d'un grand ciel = swipe. `anim_vert.py` (template) montre
@@ -65,7 +77,7 @@ Sur les Shorts, tout se joue dans la **première seconde** : sinon le spectateur
    dans `anim_vert.py` (ciel `make_top_sky`, soleil). Adapte-la si le décor change (ex. nuit = lune).
 4. Vérifie : `./stills.sh` avec 6 à 8 instants répartis sur toute la durée (un par temps fort), puis **regarde** `vsheet.png`. Inclus toujours l'instant 0 : la toute première image doit déjà montrer le héros et donner envie. Corrige tout ce qui déborde,
    se chevauche, est illisible ou moche. Recommence jusqu'à ce que ce soit propre.
-5. Fabrique : `./build.sh ../../videos/AAAA-MM-JJ-nom.mp4` (≈20-30 s).
+5. Fabrique : `../../tts_setup.sh` (voix off) puis `./build.sh ../../videos/AAAA-MM-JJ-nom.mp4` (≈20-30 s).
 6. Ajoute une ligne dans `HISTOIRES.md`, puis `git add -A && git commit && git push`.
 7. Lien public de la vidéo :
    `https://raw.githubusercontent.com/lebobonjames4-eng/shorts-enfants/main/videos/AAAA-MM-JJ-nom.mp4`
@@ -101,4 +113,5 @@ après le Short du jour :
 3. Mets la compilation dans le résumé final.
 
 ## Fin de la tâche
-Envoie un court résumé : titre, histoire en une phrase, heure de publication, lien Metricool.
+Envoie un court résumé : titre, histoire en une phrase, heure de publication, lien Metricool,
+et si la voix off a bien été ajoutée.
