@@ -1,5 +1,7 @@
 # Histoires déjà publiées
 
+Jusqu'au 27/11/2026 : Shorts (30 s, vertical). À partir du 28/11/2026 : épisodes longs de la série « Nuno & Friends » (voir SERIE.md).
+
 | Date | Titre | Héros | Ami | Décor | Geste d'aide |
 |---|---|---|---|---|---|
 | 2026-11-16 | Pico le petit nuage | Pico, un nuage | une fleur assoiffée | prairie de jour, arc-en-ciel | il fait pleuvoir |
