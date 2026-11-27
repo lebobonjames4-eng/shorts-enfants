@@ -5,6 +5,10 @@ mini-série « Nuno & Friends »** : une histoire animée **de 2 à 3 minutes, e
 et la programme sur YouTube en **vidéo classique** (pas Short) via Metricool. Personne ne vérifie avant la
 publication : la qualité dépend de toi.
 
+> Si le message de la tâche programmée parle encore de « Short », de `./stills.sh` ou de `./build.sh`, c'est une
+> ancienne formulation : le 27/11/2026, l'utilisateur a demandé de ne plus faire de Shorts mais des épisodes longs
+> d'une mini-série. Suis ce fichier : `./stills_long.sh`, `./build_long.sh`, et youtubeData `type: "video"`.
+
 **Lis d'abord `SERIE.md`** (la bible de la série : personnages, monde, épisodes déjà faits).
 
 **LANGUE : la chaîne est en ANGLAIS.** Tout ce que voit ou entend le spectateur est en anglais
