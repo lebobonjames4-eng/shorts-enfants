@@ -22,7 +22,9 @@ Phrases fétiches (à placer une fois par épisode, pas plus) :
 Une prairie dans les montagnes : sommets violets enneigés, sapins, fleurs sauvages. Lieux qui peuvent revenir :
 - **le ruisseau et le pont-tronc** (épisode pilote : le vieux tronc tombé sert maintenant de pont) ;
 - la grange rouge de Lulu, le grand chêne, le verger de pommiers, la mare aux grenouilles, la colline aux étoiles,
-  la forêt de sapins, la cascade, le moulin à vent… Invente de nouveaux coins au fil des épisodes et note-les ici.
+  la forêt de sapins, la cascade, le moulin à vent…
+- **le verger d'automne** (épisode 1) : le grand pommier aux feuilles orange, le tas de feuilles dessous, le petit
+  moulin à vent blanc au toit rouge sur la colline à gauche, des citrouilles dans l'herbe. Invente de nouveaux coins au fil des épisodes et note-les ici.
 Les saisons et la météo changent (soleil, pluie, vent, neige, nuit étoilée, arc-en-ciel, automne…) : c'est ce qui
 rend chaque épisode différent visuellement.
 
@@ -45,3 +47,4 @@ revenir plus tard : ajoute-le alors au tableau « Invités récurrents » ci-des
 | N° | Date | Titre | Invité | Lieu / moment |
 |---|---|---|---|---|
 | pilote (Short) | 2026-11-27 | Nuno and the Little Stream | — (Lulu y apparaît pour la 1re fois) | le ruisseau, matin de printemps |
+| 1 | 2026-11-28 | Pom and the Red Apple | Pom, un petit hérisson (feuille verte piquée sur le dos) | le verger d'automne, après-midi venteux |
